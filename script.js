@@ -27,15 +27,24 @@ document.addEventListener('DOMContentLoaded', () => {
             setupDiv.style.display = 'none';
             gameDiv.style.display = 'block';
             updateTurnIndicator();
+
+        } else if (isValidGuess(player1.number)){
+            alert('プレイヤー１の数値を入力してください');
+        } else if (isValidGuess(player2.number)){
+            alert('プレイヤー２の数値を入力してください');
+        } else if (player1.number){
+            alert('プレイヤー１の名前を入力してください');
+        } else if (player2.number){
+            alert('プレイヤー２の名前を入力してください');
         } else {
-            alert('両方のプレーヤーの有効な名前と一意の 6 桁の番号を入力してください。');
-        }
+            alart('なんかのエラーです、とりあえず直してみてください');
+        } 
     });
 
     guessButton.addEventListener('click', () => {
         let guess = guessInput.value;
         if (!isValidGuess(guess)) {
-            result.textContent = '一意の数字を含む有効な 6 桁の番号を入力してください。';
+            result.textContent = '一意の数字を含まない有効な 6 桁の番号を入力してください。';
             return;
         }
 
