@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const guessInput = document.getElementById('guessInput');
     const guessButton = document.getElementById('guessButton');
     const result = document.getElementById('result');
+    const error = document.getElementById('error');
     const player1HistoryContent = document.getElementById('player1HistoryContent');
     const player2HistoryContent = document.getElementById('player2HistoryContent');
     const turnIndicator = document.getElementById('turnIndicator');
@@ -27,18 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
             setupDiv.style.display = 'none';
             gameDiv.style.display = 'block';
             updateTurnIndicator();
-
-        } else if (isValidGuess(player1.number)){
-            alert('プレイヤー１の数値を入力してください');
-        } else if (isValidGuess(player2.number)){
-            alert('プレイヤー２の数値を入力してください');
-        } else if (player1.number){
-            alert('プレイヤー１の名前を入力してください');
-        } else if (player2.number){
-            alert('プレイヤー２の名前を入力してください');
         } else {
-            alart('なんかのエラーです、とりあえず直してみてください');
-        } 
+            showErrorMessages();
+        }
     });
 
     guessButton.addEventListener('click', () => {
@@ -58,11 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
         guessInput.value = '';
 
         if (hits === 6) {
-
             result.textContent = `おめでとう！ ${getCurrentPlayer().name}! あなたは正解しました！！`;
             guessButton.disabled = true;
             guessInput.disabled = true;
-
             confetti({
                 particleCount: 100,
                 spread: 70,
@@ -77,6 +67,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function validateSetup() {
         return isValidGuess(player1.number) && isValidGuess(player2.number) && player1.name && player2.name;
+    }
+
+    function showErrorMessages() {
+        let errorMessage = '';
+        if (!player1.name) {
+            errorMessage += 'プレイヤー1の名前を入力してください。<br>';
+        }
+        if (!player2.name) {
+            errorMessage += 'プレイヤー2の名前を入力してください。<br>';
+        }
+        if (!isValidGuess(player1.number)) {
+            errorMessage += 'プレイヤー1の数値を有効な6桁の数字で入力してください。<br>';
+        }
+        if (!isValidGuess(player2.number)) {
+            errorMessage += 'プレイヤー2の数値を有効な6桁の数字で入力してください。<br>';
+        }
+        error.innerHTML = errorMessage;
     }
 
     function isValidGuess(guess) {
@@ -109,7 +116,4 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateTurnIndicator() {
         turnIndicator.textContent = `${getCurrentPlayer().name}の手番です！`;
     }
-
 });
-
-
