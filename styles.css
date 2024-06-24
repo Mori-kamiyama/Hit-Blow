@@ -26,6 +26,10 @@ h1 {
     margin: 10px;
 }
 
+#player2Number {
+    display: inline; /* デフォルトは表示 */
+}
+
 h2 {
     font-size: 1.5em;
     color: #00796b;
@@ -40,6 +44,7 @@ input[type="text"], input[type="password"], #guessInput {
     box-sizing: border-box;
 }
 
+/* styles.cssの修正 */
 button {
     background: #00796b;
     color: white;
@@ -49,18 +54,26 @@ button {
     cursor: pointer;
     transition: background 0.3s;
     margin-top: 10px;
+    font-size: 1.2em;
+    min-width: 200px;
+    touch-action: manipulation;
 }
 
-button:hover {
+button:hover, button:focus {
     border: 2px solid #004d40;
     background: #ffffff;
     color: #004d40;
 }
 
+button:active {
+    background: #00574b; 
+    color: white;
+}
+
 #result {
     margin-top: 20px;
     font-size: 1.2em;
-    color: #191919;
+    color: #00796b;
     white-space: nowrap;
 }
 
